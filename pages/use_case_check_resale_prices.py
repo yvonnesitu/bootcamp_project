@@ -16,6 +16,18 @@ st.write("Check the resale prices for the past 12 months.")
 max_price = llm.get_price()
 
 with st.form("opt_form"):
+
+    labels =["Last 12 months", "Last 6 months", "Last 3 months"]
+
+    # Radio buttons to select transaction data to retrieve
+    txn_dte = st.radio(
+        "Resale transactions",
+        options = range(len(labels)),
+        format_func=labels.__getitem__,
+        horizontal=True,
+        index=0
+    )
+
     # Slider for selecting price range
     price_range = st.slider("Price range", 0, max_price, value=[100000, 500000], step=1000)
 
@@ -44,7 +56,7 @@ if submit:
                 st.error("Minimum amount must be less than or equal to maximum amount.")
             else:
                 # Generate and display the DataFrame based on selected options
-                response_df = llm.generate_options(min_price, max_price, area, flat_types)
+                response_df = llm.generate_options(txn_dte, min_price, max_price, area, flat_types)
                 if response_df.empty:
                     st.warning("No results found for the selected criteria.")
                 else:

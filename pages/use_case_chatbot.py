@@ -9,7 +9,7 @@ st.set_page_config(
 )
 # endregion <--------- Streamlit App Configuration --------->
 
-st.title("Housing loan chatbot")
+st.title("Resale Flat Buying Procedure Chatbot")
 
 # initalize chat history
 if "messages" not in st.session_state:
